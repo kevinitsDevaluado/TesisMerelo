@@ -1,0 +1,84 @@
+{% extends 'shopping/index.html' %}
+{% load static %}
+
+{% block title %}
+<div class="banner" style="padding-top: 7rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h2 style="color:#fff">Mis Pedidos</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block Compras %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped" id="tablamispedidos">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;"> # </th>
+                            <th style="text-align: center;">Fecha</th>
+                            <th style="text-align: center;">Productos</th>
+                            <th style="text-align: center;">Total</th>
+                            <th style="text-align: center;">Estado</th>
+                            <!-- <th style="text-align: center;">Acciones</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if order %}
+                        <!---->
+                        {% for o in order %}
+                        <!---->
+                        <tr>
+                            <th scope="row" style="text-align: center;">{{forloop.counter}} </th>
+                            <td style="text-align: center;">
+                                {{o.date_joined}}
+                            </td>
+                            <td style="text-align: center;">
+                                    <a class="btn btn-dark btn-xs btn-flat" data-toggle="modal"data-target="#foto-{{o.id}}" title="Mirar comprobante" style="background-color: #ed6e1f; border-color: #ed6e1f;">
+                                    <i style="color: #fff"><i class="fa fa-archive" aria-hidden="true"></i></i>
+                                    </a>  
+                            </td>  
+                            {% include "shopping/picture.html" %}
+                            <td style="text-align: center;">
+                                ${{o.total}}
+
+                            </td> 
+
+                            <td style="text-align: center;">
+                                {% if o.disponibilidad == '1' %}
+                                <b style="color: rgb(43, 182, 50);">Aceptado</b>
+                                {% else %}
+                                {% if o.disponibilidad == '0' %}
+                                <b style="color: rgb(236, 120, 43);">Pendiente</b>
+                                {% else %}
+                                <b style="color: rgb(236, 43, 43);">Cancelado</b>
+                                {% endif %}
+                                {% endif %}
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                        <!---->
+                        {% else %}
+                        <!---->
+                        <tr>
+                            <div class="alert alert-danger" role="alert">
+                                No tiene ningun pedido realizado
+                            </div>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

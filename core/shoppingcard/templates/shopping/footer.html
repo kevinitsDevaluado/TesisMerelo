@@ -1,0 +1,51 @@
+{% load static %}
+{% block footer %}
+<style>
+    .footi {
+            background-image: url("{% static 'banners/fondo3.jpg' %}");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            
+        }
+</style>
+    <footer class="footer spad footi" id="contact">
+        <div class="container ">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="./index.html"><img src="{% static 'shopping/img/logo.png' %}" alt=""></a>
+                        </div>
+                        <h5 style="color:#ed6e1f">Contactos:</h5><br>
+                        <ul>
+                            <p style="color: #fff">Correo: {{company.email}}</p>
+                            <p style="color: #fff">Teléfono: {{company.mobile}}/{{company.phone}}</p>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6" style="text-align:center;">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.2953790197494!2d-78.62178165012575!3d-0.9276673993199553!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d461ac563f4d95%3A0xee21b3c8e9568ce7!2sEverlasting%20Music!5e0!3m2!1ses-419!2sec!4v1643888265235!5m2!1ses-419!2sec" width="390" height="256" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div> 
+                <div class="col-lg-3" style="padding-right: 3rem;">
+                    <div class="footer__widget">
+                        <div class="footer__widget__social">
+                        <h5 style="color:#ed6e1f">Siguenos en:</h5><br>
+                            <a href="https://www.facebook.com/EverlastingMusic" target="_blank"><i class="fa fa-facebook"></i></a>
+                            <a href="https://www.instagram.com/everlasting.music/" target="_blank"><i class="fa fa-instagram"></i></a>
+                            <a href="https://www.youtube.com/channel/UCc5YO0Exu3ZF9k3klVvlJew" target="_blank"><i class="fa fa-youtube"></i></a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text"><p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | {{company.name}}</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}

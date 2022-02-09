@@ -1,0 +1,105 @@
+{% extends 'shopping/index.html' %}
+{% load static %}
+
+{% block title %}
+<div class="banner" style="padding-top: 7rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h2 style="color:#fff">Categoria 
+                        {% if categorias %}
+                        {% for c in categorias %}
+                        {{c.name}}
+                        {% endfor %}
+                        {% else %}
+                        {% endif %}
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block Compras %}
+<div class="row featured__filter" style="padding-top: 5rem;">
+    {% for a in productos %}
+     <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+         <div class="featured__item">
+             
+             <div class="featured__item__pic set-bg" style="background-image: url('{{ a.image.url }}');background-size: contain;">
+                 <ul class="featured__item__pic__hover">
+                    {% if request.user.is_authenticated %}
+                     <li><a class="update-cart" data-product="{{a.id}}" data-action="add"><i class="fa fa-shopping-cart"></i></a></li>
+                     <li><a class="view" src="{{ a.image.url }}" onclick="showMaxImg(this)"><i class="fa fa-search-plus"></i></a></li>
+                     <div class="modal fade bs-example-modal-lg text-center" id="imgModal" tabindex="-1" role="dialog" data-toggle="modal" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                         <div class="modal-dialog modal-lg" style="display:inline-block;width:auto;">
+                            <div class="modal-content">
+                                <div id="imgshow"></div>
+                            </div>
+                        </div>
+                     </div>
+                    {% else %}
+                    <li><a data-toggle="modal" data-target="#exampleModal"><i class="fa fa-shopping-cart"></i></a></li>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Inicia Sesión, para realizar compras.
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                    {% endif %}
+                 </ul>
+             </div>
+             <div class="row" style="text-align:center;padding-top:0.5rem">
+                <div class="col-lg-12"><h6>{{a.name}}</h6></div>
+             </div>
+             <div class="featured__item__text" style="color:#fff">
+                <h5 style="color:#fff">$ {{ a.pvp }} {% if a.stock == 0 %}<a class="right badge badge-danger">sin stock</a>{% elif a.stock < 5 %} <a class="right badge badge-warning">{{a.stock}} en stock</a> {% endif %}</h5>
+            </div>
+             {% for j in promociones %}
+             {% if a.id == j.product.id %}
+                <div class="featured__item__text" style="color:#fff">
+                        <h5 style="color:#fff"> <span class="right badge badge-warning"><del>$ {{ a.pvp }}</del></span><span class="right badge badge-success">Ahorra: ${{ j.total_dscto }}</span> </br>Promoción: $ {{ j.price_final }}</br><span class="right badge badge-success">hasta: {{ j.promotion.end_date }}</span></h5> 
+                    </div>
+                    
+            {% endif %}
+             {% endfor %}
+            
+         </div>
+     </div>
+
+    {% empty %}
+    <div class="col-lg-12 col-md-12  oranges fresh-meat">
+        <div class="featured__item text-center">
+            <h3 class="text center">
+                No se encontraron productos de esta categoría
+            </h3>
+        </div>
+    </div>
+    <!-- modal verificacion login -->
+
+    {% endfor %}
+ </div>
+ <script type="text/javascript">
+    function showMaxImg(obj){
+        var src=$(obj).attr("src");
+        $("#imgModal").find("#imgshow").html("<img src='"+src+"' class='carousel-inner img-responsive img-rounded' data-dismiss='modal'>");
+        $("#imgModal").modal('show');
+    }
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+</script>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+<div class="modal fade" id="confirmar-{{a.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><b><i class="fas fa-check"></i> Actualizar estado del pedido</b></h5>
+                <button type="button" style="font-size: 25px !important;" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'update_order' i.id %}" enctype="multipart/form-data" method="POST" role="form">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="form-group mb-5">
+                            <label for="estado">Estado del Pedido</label>
+                            <!---->
+                            <select name="disponibilidad" class="form-control js-example-basic-single w-100"
+                                style="border: 1px solid rgb(0,0,0); width: 100%;">
+                                <!---->
+                                {% if i.disponibilidad == '1'%}
+                                <option value="1" selected>Aceptado</option>
+                                <option value="2">Cancelado</option>
+                                <option value="0">Pendiente</option>
+                                {% else %}
+                                {% if i.disponibilidad == '0'%}
+                                <option value="0" selected>Pendiente</option>
+                                <option value="1">Aceptado</option>
+                                <option value="2">Cancelado</option>
+                                {% else %}
+                                <option value="0">Pendiente</option>
+                                <option value="1">Aceptado</option>
+                                <option value="2" selected>Cancelado</option>
+                                {% endif %}
+                                {% endif %}
+                                <!---->
+                            </select>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Confirmar</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>

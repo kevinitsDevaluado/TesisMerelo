@@ -1,0 +1,38 @@
+{% extends 'list.html' %}
+
+{% block columns %}
+    <th>Nro</th>
+    <th>Fecha</th>
+    <th>Metodo de pago</th>
+    <th>Subtotal</th>
+    <th>Cliente</th>
+    <th>Total</th>
+    <th class="text-center">Opciones</th>
+{% endblock %}
+
+{% block rows %}
+    {% for i in object_list %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{ i.date_joined }}</td>
+            <td>{{ i.payment_method }}</td>
+            <td>${{ i.subtotal }}</td>
+            <td>{{i.client.user.first_name}} {{i.client.user.last_name}}</td>
+            <td>${{ i.total }}</td>
+            
+            <td class="text-center">
+                <a class="btn btn-dark btn-xs btn-flat" data-toggle="modal"
+                data-target="#foto-{{i.id}}" title="Mirar comprobante">
+                    <i class="fas fa-eye"></i>
+                </a>
+                <a class="btn btn-success btn-xs btn-flat" data-toggle="modal"
+                data-target="#confirmar-{{i.id}}" title="Opciones del pediodo">
+                    <i class="fas fa-check"></i>
+                </a>
+            </td>
+        </tr>
+        {% include "scm/order/picture.html" %}
+        {% include "scm/order/confirmar.html" %}
+    {% endfor %}
+{% endblock %}
+

@@ -1,0 +1,70 @@
+{% extends 'shopping/index.html' %}
+{% load static %}
+
+
+{% block title %}
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h2>Registro
+                    </h2>
+                </div>
+            </div>
+           </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block Compras %}
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<section class="testimonial py-5" id="testimonial">
+    <div class="container">
+        <div class="row ">
+            <div class="col-md-4 py-5 bg-warning text-white text-center ">
+                <div class=" ">
+                    <div class="card-body">
+                        <img src="http://www.ansonika.com/mavia/img/registration_bg.svg" style="width:30%">
+                        <h2 class="py-3">Registrate!</h2>
+                        <p>
+                            Todo lo que necesitas para vivir la musica
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 py-5 border">
+                <h4 class="pb-4">Ingrese sus Datos</h4>
+                <form method="POST" class="post-form" data-url=" {% url 'login' %} ">
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <p>Dirección</p>
+                            <input type="text" name="direccion" class="form-control" placeholder="">
+                            <p>Telefono</p>
+                            <input type="text" name="telefono" class="form-control" placeholder="" >
+
+                        </div>
+                      </div>
+                    
+                    <div class="form-row">
+                        <button type="submit" class="btn btn-success">Registrarte</button>
+                </form>
+                <a href="{% url 'shopping_index' %}" class="btn btn-danger">Volver</a>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+ <!-- Featured Section End -->
+{% endblock %}
